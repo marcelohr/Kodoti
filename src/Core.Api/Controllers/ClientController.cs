@@ -15,6 +15,11 @@ namespace Core.Api.Controllers
         private readonly IClientService _clientService;
         public ClientController(IClientService clientService) => this._clientService = clientService;
 
+        // /clients/1
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ClientDto>> GetById(int id) 
+            => await _clientService.GetById(id);
+        [HttpPost]
         public async Task<ActionResult> Create(ClientCreateDto model)
         {
             await _clientService.Create(model);

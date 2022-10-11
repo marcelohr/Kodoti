@@ -1,4 +1,6 @@
-﻿using Model;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Model;
 using Model.DTOs;
 using Persistence.Database;
 using System;
@@ -11,11 +13,23 @@ namespace Service
     public interface IClientService
     {
         Task Create(ClientCreateDto model);
+        Task<ClientDto> GetById(int id);
     }
     public class ClientService : IClientService
     {
         private readonly AplicationDbContext _context;
-        public ClientService(AplicationDbContext context) => this._context = context;
+        private readonly IMapper _mapper;
+        public ClientService(
+            AplicationDbContext context,
+            IMapper mapper
+            )
+        {
+            this._context = context;
+            this._mapper = mapper;
+        }
+
+        public async Task<ClientDto> GetById(int id) 
+            => _mapper.Map<ClientDto>(await _context.Clients.SingleAsync(x => x.ClientId == id));
 
         public async Task Create(ClientCreateDto model)
         {
