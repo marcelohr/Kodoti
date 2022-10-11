@@ -9,6 +9,6 @@ namespace Core.Api.Controllers
     [Route("/")]
     public class DefaultController : Controller
     {
-        public IActionResult Index() => View("Running...");
+        public string Index() => "Running...";
     }
 }
