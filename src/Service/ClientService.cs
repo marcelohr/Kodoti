@@ -12,8 +12,9 @@ namespace Service
 {
     public interface IClientService
     {
-        Task Create(ClientCreateDto model);
         Task<ClientDto> GetById(int id);
+        Task<ClientDto> Create(ClientCreateDto model);
+        Task Update(int id, ClientUpdateDto model);
     }
     public class ClientService : IClientService
     {
@@ -22,7 +23,7 @@ namespace Service
         public ClientService(
             AplicationDbContext context,
             IMapper mapper
-            )
+        )
         {
             this._context = context;
             this._mapper = mapper;
@@ -31,10 +32,19 @@ namespace Service
         public async Task<ClientDto> GetById(int id) 
             => _mapper.Map<ClientDto>(await _context.Clients.SingleAsync(x => x.ClientId == id));
 
-        public async Task Create(ClientCreateDto model)
+        public async Task<ClientDto> Create(ClientCreateDto model)
         {
             Client entry = new Client { Name = model.Name };
             await _context.AddAsync(entry);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<ClientDto>(entry);
+        }
+
+        public async Task Update(int id, ClientUpdateDto model)
+        {
+            Client entry = await _context.Clients.SingleAsync(x => x.ClientId == id);
+            entry.Name = model.Name;
             await _context.SaveChangesAsync();
         }
     }

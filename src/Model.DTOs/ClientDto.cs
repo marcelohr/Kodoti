@@ -4,14 +4,19 @@ using System.Text;
 
 namespace Model.DTOs
 {
+    public class ClientDto
+    {
+        public int ClientId { get; set; }
+        public string Name { get; set; }
+    }
+
     public class ClientCreateDto
     {
         public string Name { get; set; }
     }
 
-    public class ClientDto
+    public class ClientUpdateDto
     {
-        public int ClientId { get; set; }
         public string Name { get; set; }
     }
 }

@@ -17,13 +17,23 @@ namespace Core.Api.Controllers
 
         // /clients/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClientDto>> GetById(int id) 
+        public async Task<ActionResult<ClientDto>> GetById(int id)
             => await _clientService.GetById(id);
         [HttpPost]
         public async Task<ActionResult> Create(ClientCreateDto model)
         {
-            await _clientService.Create(model);
-            return Ok();
+            ClientDto result = await _clientService.Create(model);
+            return CreatedAtAction(
+                "GetById",
+                new { id = result.ClientId },
+                result
+            );
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, ClientUpdateDto model)
+        {
+            await _clientService.Update(id, model);
+            return NoContent();
         }
     }
 }
