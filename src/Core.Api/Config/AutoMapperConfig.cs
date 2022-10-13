@@ -15,6 +15,9 @@ namespace Core.Api.Config
         {
             CreateMap<Client, ClientDto>();
             CreateMap<DataCollection<Client>, DataCollection<ClientDto>>();
+
+            CreateMap<Product, ProductDto>();
+            CreateMap<DataCollection<Product>, DataCollection<ProductDto>>();
         }
     }
 }
