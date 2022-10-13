@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.DTOs;
 using Service;
+using Service.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace Core.Api.Controllers
         private readonly IClientService _clientService;
         public ClientController(IClientService clientService) => this._clientService = clientService;
 
+        [HttpGet]
+        public async Task<ActionResult<DataCollection<ClientDto>>> GetById(int page, int take)
+            => await _clientService.GetAll(page, take);
         // /clients/1
         [HttpGet("{id}")]
         public async Task<ActionResult<ClientDto>> GetById(int id)

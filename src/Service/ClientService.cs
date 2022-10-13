@@ -3,8 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Model;
 using Model.DTOs;
 using Persistence.Database;
+using Service.Commons;
+using Service.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +15,7 @@ namespace Service
 {
     public interface IClientService
     {
+        Task<DataCollection<ClientDto>> GetAll(int page, int take);
         Task<ClientDto> GetById(int id);
         Task<ClientDto> Create(ClientCreateDto model);
         Task Update(int id, ClientUpdateDto model);
@@ -30,7 +34,14 @@ namespace Service
             this._mapper = mapper;
         }
 
-        public async Task<ClientDto> GetById(int id) 
+        public async Task<DataCollection<ClientDto>> GetAll(int page, int take)
+            => _mapper.Map<DataCollection<ClientDto>>(
+                    await _context.Clients.OrderByDescending(x => x.ClientId)
+                                        .AsQueryable()
+                                        .PagedAsync(page, take)
+                );
+
+        public async Task<ClientDto> GetById(int id)
             => _mapper.Map<ClientDto>(await _context.Clients.SingleAsync(x => x.ClientId == id));
 
         public async Task<ClientDto> Create(ClientCreateDto model)
