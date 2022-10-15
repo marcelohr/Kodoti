@@ -25,6 +25,22 @@ namespace Model.DTOs
         public decimal Iva { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
-        public List<OrderDetailCreateDto> Items { get; set; }
+
+        public List<OrderDetailDto> Items { get; set; }
+    }
+
+    public class OrderDetailDto
+    {
+        public int OrderDetailId { get; set; }
+
+        public int ProductId { get; set; }
+        public ProductDto Product { get; set; }
+        public decimal UnitPrice { get; set; }
+
+        public int Quantity { get; set; }
+
+        public decimal Iva { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Total { get; set; }
     }
 }

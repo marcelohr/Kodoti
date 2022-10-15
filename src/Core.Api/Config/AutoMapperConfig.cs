@@ -18,6 +18,13 @@ namespace Core.Api.Config
 
             CreateMap<Product, ProductDto>();
             CreateMap<DataCollection<Product>, DataCollection<ProductDto>>();
+
+            CreateMap<Order, OrderDto>();
+            CreateMap<OrderDetail, OrderDetailDto>();
+            CreateMap<DataCollection<Order>, DataCollection<OrderDto>>();
+
+            CreateMap<OrderCreateDto, Order>();
+            CreateMap<OrderDetailCreateDto, OrderDetail>();
         }
     }
 }
