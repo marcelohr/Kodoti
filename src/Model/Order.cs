@@ -12,6 +12,6 @@ namespace Model
         public decimal Iva { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
-        public List<Order> Items { get; set; }
+        public List<OrderDetail> Items { get; set; }
     }
 }
