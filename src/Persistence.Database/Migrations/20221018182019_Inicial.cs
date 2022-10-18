@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Database.Migrations
 {
-    public partial class Identity : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,11 +39,40 @@ namespace Persistence.Database.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    BirthDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    ClientId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.ClientId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +142,8 @@ namespace Persistence.Database.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,6 +179,59 @@ namespace Persistence.Database.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(nullable: false),
+                    Iva = table.Column<decimal>(nullable: false),
+                    Subtotal = table.Column<decimal>(nullable: false),
+                    Total = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetails",
+                columns: table => new
+                {
+                    OrderDetailId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    UnitPrice = table.Column<decimal>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Iva = table.Column<decimal>(nullable: false),
+                    Subtotal = table.Column<decimal>(nullable: false),
+                    Total = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetails", x => x.OrderDetailId);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -190,6 +273,21 @@ namespace Persistence.Database.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderId",
+                table: "OrderDetails",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_ProductId",
+                table: "OrderDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ClientId",
+                table: "Orders",
+                column: "ClientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +308,22 @@ namespace Persistence.Database.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OrderDetails");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
         }
     }
 }

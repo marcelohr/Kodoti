@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Persistence.Database
 {
-    public class AplicationDbContext : IdentityDbContext
+    public class AplicationDbContext : IdentityDbContext<AplicationUser, AplicationRole, string>
     {
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options) { }
 
@@ -24,8 +24,8 @@ namespace Persistence.Database
 
             new ClientConfig(builder.Entity<Client>());
             new ProductConfig(builder.Entity<Product>());
-            //new AplicationUserConfig(builder.Entity<AplicationUser>());
-            //new AplicationRoleConfig(builder.Entity<AplicationRole>());
+            new AplicationUserConfig(builder.Entity<AplicationUser>());
+            new AplicationRoleConfig(builder.Entity<AplicationRole>());
         }
     }
 }

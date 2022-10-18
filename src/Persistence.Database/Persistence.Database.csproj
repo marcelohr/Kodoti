@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20221018160858_Identity.cs" />
-    <Compile Remove="Migrations\20221018160858_Identity.Designer.cs" />
-    <Compile Remove="Migrations\20221018161401_Identity.cs" />
-    <Compile Remove="Migrations\20221018161401_Identity.Designer.cs" />
+    <Compile Remove="Migrations\20221018181357_Inicial.cs" />
+    <Compile Remove="Migrations\20221018181357_Inicial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +17,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
