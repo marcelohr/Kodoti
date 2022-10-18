@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Model;
+using Model.Identity;
 using Persistence.Database.Config;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace Persistence.Database
 {
-    public class AplicationDbContext : DbContext
+    public class AplicationDbContext : IdentityDbContext
     {
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options) { }
 
@@ -22,6 +24,8 @@ namespace Persistence.Database
 
             new ClientConfig(builder.Entity<Client>());
             new ProductConfig(builder.Entity<Product>());
+            //new AplicationUserConfig(builder.Entity<AplicationUser>());
+            //new AplicationRoleConfig(builder.Entity<AplicationRole>());
         }
     }
 }

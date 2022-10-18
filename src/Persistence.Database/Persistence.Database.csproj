@@ -5,7 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20221018160858_Identity.cs" />
+    <Compile Remove="Migrations\20221018160858_Identity.Designer.cs" />
+    <Compile Remove="Migrations\20221018161401_Identity.cs" />
+    <Compile Remove="Migrations\20221018161401_Identity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.30" />
   </ItemGroup>
 
   <ItemGroup>
