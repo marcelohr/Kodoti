@@ -25,14 +25,8 @@ namespace Service
     {
         private readonly AplicationDbContext _context;
         private readonly IMapper _mapper;
-        public ClientService(
-            AplicationDbContext context,
-            IMapper mapper
-        )
-        {
-            this._context = context;
-            this._mapper = mapper;
-        }
+        public ClientService(AplicationDbContext context, IMapper mapper)
+            => (this._context, this._mapper) = (context, mapper);
 
         public async Task<DataCollection<ClientDto>> GetAll(int page, int take)
             => _mapper.Map<DataCollection<ClientDto>>(

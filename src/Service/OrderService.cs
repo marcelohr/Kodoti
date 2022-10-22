@@ -25,14 +25,8 @@ namespace Service
         private readonly AplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly decimal IvaRate = 0.18m;
-        public OrderService(
-            AplicationDbContext context,
-            IMapper mapper
-        )
-        {
-            this._context = context;
-            this._mapper = mapper;
-        }
+        public OrderService(AplicationDbContext context, IMapper mapper)
+            => (this._context, this._mapper) = (context, mapper);
 
         public async Task<DataCollection<OrderDto>> GetAll(int page, int take) =>
             _mapper.Map<DataCollection<OrderDto>>(

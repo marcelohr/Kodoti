@@ -26,14 +26,8 @@ namespace Service
     {
         private readonly AplicationDbContext _context;
         private readonly IMapper _mapper;
-        public ProductService(
-            AplicationDbContext context,
-            IMapper mapper
-        )
-        {
-            this._context = context;
-            this._mapper = mapper;
-        }
+        public ProductService(AplicationDbContext context, IMapper mapper)        
+            => (this._context, this._mapper) = (context, mapper);
 
         public async Task<DataCollection<ProductDto>> GetAll(int page, int take) => 
             _mapper.Map<DataCollection<ProductDto>>(
