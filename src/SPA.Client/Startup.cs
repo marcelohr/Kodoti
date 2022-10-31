@@ -26,6 +26,12 @@ namespace SPA.Client
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSpa(spa =>
+            {
+                spa.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+            });
+
+            /*
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -35,6 +41,7 @@ namespace SPA.Client
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+            */
         }
     }
 }
