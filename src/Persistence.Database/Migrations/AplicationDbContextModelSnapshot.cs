@@ -169,6 +169,22 @@ namespace Persistence.Database.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "41e811f0-cdd7-4d9b-8b8f-c9063ccbaa64",
+                            ConcurrencyStamp = "feaf4449-785b-46c6-91a7-e951878b3954",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c717cbe8-4490-4b61-8e47-1c2f55790655",
+                            ConcurrencyStamp = "32d04e38-52e7-4e94-96c0-5470d64ebfa9",
+                            Name = "Seller",
+                            NormalizedName = "Seller"
+                        });
                 });
 
             modelBuilder.Entity("Model.Identity.AplicationUser", b =>

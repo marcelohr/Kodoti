@@ -8,10 +8,27 @@ namespace Persistence.Database.Config
 {
     public class AplicationRoleConfig
     {
-        public AplicationRoleConfig(EntityTypeBuilder<AplicationRole> entityTypeBuilder) =>
+        public AplicationRoleConfig(EntityTypeBuilder<AplicationRole> entityTypeBuilder)
+        {
             entityTypeBuilder.HasMany(x => x.UserRoles)
                 .WithOne(x => x.Role)
                 .HasForeignKey(x => x.RoleId)
                 .IsRequired();
+
+            entityTypeBuilder.HasData(
+                new AplicationRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Admin",
+                    NormalizedName = "Admin"
+                },
+                new AplicationRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Seller",
+                    NormalizedName = "Seller"
+                }
+            );
+        }
     }
 }

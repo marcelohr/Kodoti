@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Core.Api.Commons;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -27,13 +28,13 @@ namespace Core.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Create(AplicationRegisterUserDto model)
         {
-            IdentityResult result = await _userManager.CreateAsync(
-                new AplicationUser {
-                    Email = model.Email,
-                    UserName = model.Email
-                },
-                model.Password
-            );
+            AplicationUser user = new AplicationUser
+            {
+                Email = model.Email,
+                UserName = model.Email
+            };
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, RoleHelper.Seller);
 
             if (!result.Succeeded) throw new Exception("No se pudo crear el usuario");
             return Ok();
@@ -47,7 +48,7 @@ namespace Core.Api.Controllers
             if (check.Succeeded)
             {
                 return Ok(
-                    GenerateToken(user)
+                    await GenerateToken(user)
                 );
             }
             else
@@ -56,17 +57,22 @@ namespace Core.Api.Controllers
             }
         }
 
-        private string GenerateToken(AplicationUser user)
+        private async Task<string> GenerateToken(AplicationUser user)
         {
             var secretKey = _configuration.GetValue<string>("secretKey");
             var key = Encoding.ASCII.GetBytes(secretKey);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles) claims.Add(new Claim(ClaimTypes.Role, role));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { 
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Email, user.Email)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

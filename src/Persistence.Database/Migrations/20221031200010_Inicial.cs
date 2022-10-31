@@ -235,6 +235,16 @@ namespace Persistence.Database.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "41e811f0-cdd7-4d9b-8b8f-c9063ccbaa64", "feaf4449-785b-46c6-91a7-e951878b3954", "Admin", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "c717cbe8-4490-4b61-8e47-1c2f55790655", "32d04e38-52e7-4e94-96c0-5470d64ebfa9", "Seller", "Seller" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
