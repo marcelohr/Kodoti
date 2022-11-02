@@ -1,12 +1,19 @@
 <template>
   <section id="app" class="hero is-light is-bold is-fullheight">
-    <Header></Header>
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <router-view />
+    <template v-if="hasConfig">
+      <Header></Header>
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <router-view />
+        </div>
+      </div>
+      <Footer></Footer>
+    </template>
+    <div v-else class="hero-body">
+      <div class="container has-text-centered is-size-5">
+        <p>- Estamos inicializando el proyecto, un momento porfavor... -</p>
       </div>
     </div>
-    <Footer></Footer>
   </section>
 </template>
 
@@ -15,10 +22,32 @@ import Header from '@/shared/Header.vue'
 import Footer from '@/shared/Footer.vue'
 export default {
   name: "app",
+  mounted() {
+    this.initiliaze()
+  },
   components: {
     // eslint-disable-next-line vue/no-unused-components
     Header,
     Footer
+  },
+  data() {
+    return {
+      hasConfig: false
+    }
+  },
+  methods: {
+    initiliaze() {
+      if (!localStorage.getItem("config")) {
+        fetch('/config')
+          .then(x => x.json())
+          .then(x => {
+            localStorage.setItem("config", JSON.stringify(x));
+            this.hasConfig = true
+          })
+      } else {
+        this.hasConfig = true
+      }
+    }
   }
 }
 </script>
