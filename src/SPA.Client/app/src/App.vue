@@ -37,15 +37,29 @@ export default {
   },
   methods: {
     initiliaze() {
-      if (!localStorage.getItem("config")) {
-        fetch('/config')
-          .then(x => x.json())
-          .then(x => {
-            localStorage.setItem("config", JSON.stringify(x));
-            this.hasConfig = true
-          })
-      } else {
-        this.hasConfig = true
+      let self = this;
+
+      fetch('config/version')
+        .then(x => x.text())
+        .then(x => {
+          if (!localStorage.getItem("version") || localStorage.getItem("version") != x) {
+            localStorage.clear()
+            localStorage.setItem("version", x)
+          }
+          __prepareConfig()
+        })
+
+      function __prepareConfig() {
+        if (!localStorage.getItem("config")) {
+          fetch('/config')
+            .then(x => x.json())
+            .then(x => {
+              localStorage.setItem("config", JSON.stringify(x));
+              self.hasConfig = true
+            })
+        } else {
+          self.hasConfig = true
+        }
       }
     }
   }

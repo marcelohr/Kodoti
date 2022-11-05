@@ -12,11 +12,15 @@ namespace SPA.Client.Controllers
     public class ConfigController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private static readonly string AppVersion = "KodotiApp-" + DateTime.UtcNow.ToString("yyyyMMddHHmmss");
         public ConfigController(IConfiguration configuration) => this._configuration = configuration;
 
         [HttpGet]
         public ActionResult Index() => Ok(new { 
             ApiUrl = _configuration.GetValue<string>("ApiUrl")
         });
+
+        [HttpGet("version")]
+        public ActionResult GetVersion() => Ok(AppVersion);
     }
 }
