@@ -24,7 +24,7 @@ export default {
   name: "app",
   mounted() {
     this.initiliaze()
-    this.$proxies.signInProxy.login()
+    this.$proxies.identityProxy.login()
   },
   components: {
     // eslint-disable-next-line vue/no-unused-components
@@ -57,6 +57,7 @@ export default {
             .then(x => {
               localStorage.setItem("config", JSON.stringify(x));
               self.hasConfig = true
+              window.location.reload(true)
             })
         } else {
           self.hasConfig = true
