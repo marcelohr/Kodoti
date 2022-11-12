@@ -24,6 +24,7 @@ export default {
   name: "app",
   mounted() {
     this.initiliaze()
+    this.$proxies.signInProxy.login()
   },
   components: {
     // eslint-disable-next-line vue/no-unused-components
