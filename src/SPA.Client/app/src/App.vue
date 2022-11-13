@@ -1,10 +1,11 @@
 <template>
   <section id="app" class="hero is-light is-bold is-fullheight">
     <template v-if="hasConfig">
-      <Header></Header>
+      <Header v-if="isLoggedIn"></Header>
       <div class="hero-body">
-        <div class="container has-text-centered">
-          <router-view />
+        <div class="container">
+          <router-view v-if="isLoggedIn"/>
+          <Access v-else></Access>
         </div>
       </div>
       <Footer></Footer>
@@ -20,6 +21,7 @@
 <script>
 import Header from '@/shared/Header.vue'
 import Footer from '@/shared/Footer.vue'
+import Access from '@/shared/Access.vue'
 export default {
   name: "app",
   mounted() {
@@ -29,11 +31,13 @@ export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
     Header,
-    Footer
+    Footer,
+    Access
   },
   data() {
     return {
-      hasConfig: false
+      hasConfig: false,
+      isLoggedIn: false
     }
   },
   methods: {
