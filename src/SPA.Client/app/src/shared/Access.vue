@@ -24,15 +24,15 @@
                         <button class="button is-primary" type="button">Entrar</button>
                     </div>
                 </form>
-                <form v-if="tab === 'register'">
+                <form @submit.prevent="createUser" v-if="tab === 'register'">
                     <div class="field">
-                        <input class="input" type="text" placeholder="Ingrese su correo">
+                        <input required v-model="user.email" class="input" type="text" placeholder="Ingrese su correo">
                     </div>
                     <div class="field">
-                        <input class="input" type="password" placeholder="Ingrese su clave">
+                        <input v-model="user.password" class="input" type="password" placeholder="Ingrese su clave">
                     </div>
                     <div class="field">
-                        <button class="button is-primary" type="button">Registrarse</button>
+                        <button :disabled="user.loading" class="button is-info" type="submit">Registrarse</button>
                     </div>
                 </form>
             </div>
@@ -46,7 +46,39 @@ export default {
     name: 'Access',
     data() {
         return {
-            tab: 'login'
+            tab: 'login',
+            user: {
+                email: null,
+                password: null,
+                loading: false
+            }
+        }
+    },
+    methods: {
+        createUser() {
+            this.user.loading = true
+            this.$proxies.identityProxy
+                .register(this.user)
+                .then(() => {
+                    this.user.email = null
+                    this.user.password = null
+                    this.$notify({
+                        group: "global",
+                        type: "success",
+                        text: "Su cuenta ha sido creada con exito."
+                    })
+                    this.user.loading = false
+                })
+                .catch(x => {
+                    if (x.response.status === 400) {
+                        this.$notify({
+                            group: "global",
+                            type: "error",
+                            text: x.response.data
+                        })
+                    }
+                    this.user.loading = false
+                })
         }
     }
 }

@@ -34,6 +34,14 @@ namespace Core.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                    builder.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin()
+                    );
+            });
             services.AddDbContext<AplicationDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
@@ -83,6 +91,7 @@ namespace Core.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseRouting();
 
             app.UseAuthentication();

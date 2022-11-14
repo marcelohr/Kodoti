@@ -36,7 +36,7 @@ namespace Core.Api.Controllers
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             await _userManager.AddToRoleAsync(user, RoleHelper.Seller);
 
-            if (!result.Succeeded) throw new Exception("No se pudo crear el usuario");
+            if (!result.Succeeded) return BadRequest("No se pudo crear el usuario.");
             return Ok();
         }
 

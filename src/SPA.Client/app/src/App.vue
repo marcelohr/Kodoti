@@ -1,10 +1,11 @@
 <template>
-  <section id="app" class="hero is-light is-bold is-fullheight">
+  <section id="app" class="hero is-light is-fullheight">
+    <notifications group="global" />
     <template v-if="hasConfig">
       <Header v-if="isLoggedIn"></Header>
       <div class="hero-body">
         <div class="container">
-          <router-view v-if="isLoggedIn"/>
+          <router-view v-if="isLoggedIn" />
           <Access v-else></Access>
         </div>
       </div>
