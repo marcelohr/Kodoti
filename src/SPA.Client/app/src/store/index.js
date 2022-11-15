@@ -7,14 +7,3 @@ export const store = createStore({
         }
     }
 })
-
-/*
-createApp.use(Vuex)
-
-const state = {
-    user: null
-}
-
-export default new Vuex.Store({
-    state
-})*/

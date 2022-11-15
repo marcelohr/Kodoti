@@ -68,9 +68,7 @@ export default {
                         text: "Acceso correcto"
                     })
                     localStorage.setItem('access_token', x.data)
-                    /*let token = x.data.split('.')
-                    let user = atob(token[1])
-                    console.log(user)*/
+                    this.$user()
                 })
                 .catch(x => {
                     if (x.response.status === 400) {

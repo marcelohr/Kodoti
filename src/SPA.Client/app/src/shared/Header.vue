@@ -16,19 +16,15 @@
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
-            <a class="navbar-item is-active">
-              Home
-            </a>
-            <a class="navbar-item">
-              Examples
-            </a>
-            <a class="navbar-item">
-              Documentation
-            </a>
+            <router-link class="navbar-item is-active" to="/">Home</router-link>
+            <router-link class="navbar-item" to="/orders">Orders</router-link>
+            <router-link class="navbar-item" to="/clients">Clients</router-link>
+            <router-link class="navbar-item" to="/products">Products</router-link>
+            <router-link v-if="user.roles.includes('Admin')" class="navbar-item" to="/users">Users</router-link>
             <span class="navbar-item">
               <a @click="logout" class="button is-danger is-inverted">
                 <span class="icon">
-                  <i class="fas fa-sign-out-alt"></i>
+                  <i class="fab fa-sign-out-alt"></i>
                 </span>
                 <span>Logout</span>
               </a>
@@ -44,6 +40,11 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Header',
+  data() {
+    return {
+      user: this.$store.state.user
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem("access_token")

@@ -71,14 +71,16 @@ export default {
       }
       function __isLoggedIn() {
         if (localStorage.getItem("access_token") != null) {
+          /*
           let token = localStorage.getItem("access_token").split('.')
           let user = JSON.parse(atob(token[1]))
           self.$store.state.user = {
             id: user.nameid,
-            email: user.email
+            email: user.email,
+            roles: user.role
           }
-
-          console.log(user)
+          */
+          self.$user()
           self.isLoggedIn = true
         }
       }
