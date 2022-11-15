@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="hero-head">
+  <div class="hero-head">
     <header class="navbar">
       <div class="container">
         <div class="navbar-brand">
@@ -26,11 +26,11 @@
               Documentation
             </a>
             <span class="navbar-item">
-              <a class="button is-success is-inverted">
+              <a @click="logout" class="button is-danger is-inverted">
                 <span class="icon">
-                  <i class="fab fa-github"></i>
+                  <i class="fas fa-sign-out-alt"></i>
                 </span>
-                <span>Download</span>
+                <span>Logout</span>
               </a>
             </span>
           </div>
@@ -43,6 +43,12 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    logout() {
+      localStorage.removeItem("access_token")
+      this.$parent.isLoggedIn = false
+    }
+  }
 }
 </script>
