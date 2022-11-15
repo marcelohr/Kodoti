@@ -53,6 +53,7 @@ export default {
             localStorage.setItem("version", x)
           }
           __prepareConfig()
+          __isLoggedIn()
         })
 
       function __prepareConfig() {
@@ -66,6 +67,11 @@ export default {
             })
         } else {
           self.hasConfig = true
+        }
+      }
+      function __isLoggedIn() {
+        if (localStorage.getItem("access_token") != null) {
+          self.isLoggedIn = true
         }
       }
     }

@@ -13,20 +13,20 @@
                         </li>
                     </ul>
                 </div>
-                <form v-if="tab === 'login'">
+                <form @submit.prevent="authenticate" v-if="tab === 'login'">
                     <div class="field">
-                        <input class="input" type="text" placeholder="Ingrese su correo">
+                        <input :disabled="user.loading" v-model="user.email" class="input" type="text" placeholder="Ingrese su correo">
                     </div>
                     <div class="field">
-                        <input class="input" type="password" placeholder="Ingrese su clave">
+                        <input :disabled="user.loading" v-model="user.password" class="input" type="password" placeholder="Ingrese su clave">
                     </div>
                     <div class="field">
-                        <button class="button is-primary" type="button">Entrar</button>
+                        <button :disabled="user.loading" class="button is-primary" type="submit">Entrar</button>
                     </div>
                 </form>
                 <form @submit.prevent="createUser" v-if="tab === 'register'">
                     <div class="field">
-                        <input required v-model="user.email" class="input" type="text" placeholder="Ingrese su correo">
+                        <input v-model="user.email" class="input" type="text" placeholder="Ingrese su correo">
                     </div>
                     <div class="field">
                         <input v-model="user.password" class="input" type="password" placeholder="Ingrese su clave">
@@ -55,6 +55,34 @@ export default {
         }
     },
     methods: {
+        authenticate() {
+            this.user.loading = true
+            this.$proxies.identityProxy
+                .login(this.user)
+                .then(x => {
+                    this.user.loading = false
+                    this.$parent.isLoggedIn = true
+                    this.$notify({
+                        group: "global",
+                        type: "success",
+                        text: "Acceso correcto"
+                    })
+                    localStorage.setItem('access_token', x.data)
+                    /*let token = x.data.split('.')
+                    let user = atob(token[1])
+                    console.log(user)*/
+                })
+                .catch(x => {
+                    if (x.response.status === 400) {
+                        this.$notify({
+                            group: "global",
+                            type: "error",
+                            text: x.response.data
+                        })
+                    }
+                    this.user.loading = false
+                })
+        },
         createUser() {
             this.user.loading = true
             this.$proxies.identityProxy

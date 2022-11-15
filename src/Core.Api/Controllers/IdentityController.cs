@@ -44,17 +44,18 @@ namespace Core.Api.Controllers
         public async Task<IActionResult> Login(AplicationLoginUserDto model)
         {
             AplicationUser user = await _userManager.FindByEmailAsync(model.Email);
-            var check = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-            if (check.Succeeded)
+            if(user != null)
             {
-                return Ok(
-                    await GenerateToken(user)
-                );
+                var check = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                if (check.Succeeded)
+                {
+                    return Ok(
+                        await GenerateToken(user)
+                    );
+                }
             }
-            else
-            {
-                return BadRequest("Acceso no valido al sistema");
-            }
+            
+            return BadRequest("Acceso no valido al sistema");
         }
 
         private async Task<string> GenerateToken(AplicationUser user)
