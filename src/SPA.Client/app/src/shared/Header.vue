@@ -16,10 +16,10 @@
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
-            <router-link class="navbar-item is-active" to="/">Home</router-link>
-            <router-link class="navbar-item" to="/orders">Orders</router-link>
-            <router-link class="navbar-item" to="/clients">Clients</router-link>
-            <router-link class="navbar-item" to="/products">Products</router-link>
+            <router-link :class="{'is-active' : $route.name === 'default'}" class="navbar-item" to="/">Home</router-link>
+            <router-link :class="{'is-active' : $route.name === 'orders'}" class="navbar-item" to="/orders">Orders</router-link>
+            <router-link :class="{'is-active' : $route.name === 'clients'}" class="navbar-item" to="/clients">Clients</router-link>
+            <router-link :class="{'is-active' : $route.name === 'products'}" class="navbar-item" to="/products">Products</router-link>
             <router-link v-if="user.roles.includes('Admin')" class="navbar-item" to="/users">Users</router-link>
             <span class="navbar-item">
               <a @click="logout" class="button is-danger is-inverted">
