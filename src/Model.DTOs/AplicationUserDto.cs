@@ -20,4 +20,9 @@ namespace Model.DTOs
         [Required]
         public string Password { get; set; }
     }
+
+    public class AplicationUserDto
+    {
+
+    }
 }

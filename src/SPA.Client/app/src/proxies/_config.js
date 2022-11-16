@@ -1,8 +1,20 @@
 import Axios from 'axios'
 import IdentityProxy from './IdentityProxy.js'
+import UserProxy from './UserProxy.js'
 
 // Axios default behavior
 Axios.defaults.headers.common.Accept = 'application/json'
+Axios.interceptors.request.use(
+    config => {
+        let token = localStorage.getItem('access_token')
+        if(token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+
+        return config
+    },
+    error => Promise.reject(error)
+)
 let url = null
 
 if(localStorage.getItem("config") !== null){
@@ -10,8 +22,7 @@ if(localStorage.getItem("config") !== null){
     url = config.apiUrl
 }
 
-console.log(url)
-
 export default {
-    identityProxy: new IdentityProxy(Axios, url)
+    identityProxy: new IdentityProxy(Axios, url),
+    userProxy: new UserProxy(Axios, url)
 }
