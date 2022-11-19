@@ -60,6 +60,7 @@ namespace Core.Api
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddAutoMapper(typeof(Startup));
 

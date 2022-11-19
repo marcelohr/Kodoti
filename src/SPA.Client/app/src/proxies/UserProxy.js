@@ -5,7 +5,7 @@ export default class UserProxy {
   }
 
   getAll(page, take) {
-    return this.axios.get(this.url + `users?page=${page}&take${take}`)
+    return this.axios.get(this.url + `users?page=${page}&take=${take}`)
   }
 }
 

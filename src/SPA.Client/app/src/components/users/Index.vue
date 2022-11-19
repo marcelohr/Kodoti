@@ -7,16 +7,16 @@
         <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>Id</th>
                     <th>Email</th>
                     <th>Role</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr v-for="item in collection.items" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.roles }}</td>
                 </tr>
             </tbody>
         </table>

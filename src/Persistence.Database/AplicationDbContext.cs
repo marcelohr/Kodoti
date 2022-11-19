@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using Model.Identity;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace Persistence.Database
 {
-    public class AplicationDbContext : IdentityDbContext<AplicationUser, AplicationRole, string>
+    public class AplicationDbContext : IdentityDbContext<AplicationUser, AplicationRole, string, IdentityUserClaim<string>, AplicationUserRole, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options) { }
 

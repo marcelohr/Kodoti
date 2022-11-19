@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Model.DTOs;
 using Service;
 using Service.Commons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Core.Api.Controllers

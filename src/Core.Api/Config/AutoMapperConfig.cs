@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Model;
 using Model.DTOs;
+using Model.Identity;
 using Service.Commons;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,17 @@ namespace Core.Api.Config
             CreateMap<OrderDetail, OrderDetailDto>();
             CreateMap<DataCollection<Order>, DataCollection<OrderDto>>();
 
-            CreateMap<OrderCreateDto, Order>();
-            CreateMap<OrderDetailCreateDto, OrderDetail>();
+            CreateMap<Order, OrderCreateDto>();
+            CreateMap<OrderDetail, OrderDetailCreateDto>();
+
+            CreateMap<AplicationUser, AplicationUserDto>()
+                .ForMember(
+                    to => to.Roles,
+                    from => from.MapFrom(
+                            source => source.UserRoles.Select(x => x.Role.Name).ToList()
+                        )
+                );
+            CreateMap<DataCollection<AplicationUser>, DataCollection<AplicationUserDto>>();
         }
     }
 }
