@@ -18,15 +18,15 @@ export default {
         pages: 0,
         total: 0,
       },
-      isLoading: true
+      isLoading: false
     }
   },
   methods: {
     getAll(page) {
-      this.isLoading = false
+      this.isLoading = true
       this.$proxies.userProxy.getAll(page, 10).then(x => {
         this.collection = x.data;
-        this.isLoading = true
+        this.isLoading = false
       });
     }
   }
