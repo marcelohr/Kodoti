@@ -4,7 +4,8 @@
         <h1 class="title">Users</h1>
         <h2 class="subtitle">Desde aqui puede gestionar sus usuarios</h2>
 
-        <table class="table is-striped is-fullwidth">
+        <template v-if="!isLoading">
+            <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -21,6 +22,8 @@
             </tbody>
         </table>
         <Pager :paging="x => this.getAll(x)" :page="collection.page" :pages="collection.pages" />
+        </template>
+        <Loader v-else />
     </div>
 </template>
 

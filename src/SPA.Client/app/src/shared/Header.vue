@@ -23,9 +23,7 @@
             <router-link :class="{'is-active' : $route.name === 'users'}" v-if="user.roles.includes('Admin')" class="navbar-item" to="/users">Users</router-link>
             <span class="navbar-item">
               <a @click="logout" class="button is-danger is-inverted">
-                <span class="icon">
-                  <i class="fab fa-sign-out-alt"></i>
-                </span>
+                <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
                 <span>Logout</span>
               </a>
             </span>
