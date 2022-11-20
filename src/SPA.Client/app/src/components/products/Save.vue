@@ -4,12 +4,12 @@
         <h1 class="title">New Product</h1>
         <h2 class="subtitle">Insert Data to Register a Product</h2>
 
-        <form @submit.prevent="save">
+        <form v-if="!isLoading" @submit.prevent="save">
             <div class="field">
                 <input v-model="model.name" required minlength="3" maxlength="100" autocomplete="false" class="input" type="text" placeholder="Enter Name" />
             </div>
             <div class="field">
-                <input v-model="model.price" required min="1" autocomplete="false" class="input" type="number"
+                <input v-model.number="model.price" required min="1" autocomplete="false" class="input" type="number"
                     placeholder="Enter UnitPrice" />
             </div>
             <div class="field">
@@ -20,6 +20,7 @@
                 <button type="submit" class="button is-success">Confirm</button>
             </div>
         </form>
+        <Loader v-else />
     </div>
 </template>
 

@@ -8,24 +8,24 @@
         </div>
         <template v-if="!isLoading">
             <table class="table is-striped is-fullwidth">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>UnitPrice</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in collection.items" :key="item.id">
-                    <td>{{ item.productId }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <Pager :paging="x => this.getAll(x)" :page="collection.page" :pages="collection.pages" />
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>UnitPrice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in collection.items" :key="item.id">
+                        <td>{{ item.productId }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>USD {{ item.price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <Pager :paging="x => this.getAll(x)" :page="collection.page" :pages="collection.pages" />
         </template>
     </div>
 </template>
