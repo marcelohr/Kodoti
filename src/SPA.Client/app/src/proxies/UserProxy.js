@@ -8,4 +8,3 @@ export default class UserProxy {
     return this.axios.get(this.url + `users?page=${page}&take=${take}`)
   }
 }
-

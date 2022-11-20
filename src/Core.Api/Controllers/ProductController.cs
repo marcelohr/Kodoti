@@ -20,7 +20,7 @@ namespace Core.Api.Controllers
         public ProductController(IProductService productService) => this._productService = productService;
 
         [HttpGet]
-        public async Task<ActionResult<DataCollection<ProductDto>>> GetById(int page, int take) => 
+        public async Task<ActionResult<DataCollection<ProductDto>>> GetAll(int page, int take) => 
             await _productService.GetAll(page, take);
 
         [HttpGet("{id}")]
