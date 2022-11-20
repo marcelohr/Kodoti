@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Default from "../components/Default.vue";
 import IndexClients from "../components/clients/Index.vue";
+import SaveClients from "../components/clients/Save.vue"
 import IndexOrders from "../components/orders/Index.vue";
 import IndexProducts from "../components/products/Index.vue";
 import SaveProduct from "../components/products/Save.vue"
@@ -23,6 +24,11 @@ const routes = [
     path: "/clients",
     name: "clients",
     component: IndexClients
+  },
+  {
+    path: "/clients/create",
+    name: "saveClient",
+    component: SaveClients
   },
   {
     path: "/products",

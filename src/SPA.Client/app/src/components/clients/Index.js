@@ -4,7 +4,7 @@ import Loader from "@/shared/Loader";
 export default {
     name: 'IndexClient',
     mounted() {
-
+        this.getAll(1)
     },
     components: {
         Pager, Loader

@@ -17,7 +17,7 @@ namespace Core.Api.Controllers
         public ClientController(IClientService clientService) => this._clientService = clientService;
 
         [HttpGet]
-        public async Task<ActionResult<DataCollection<ClientDto>>> GetById(int page, int take)
+        public async Task<ActionResult<DataCollection<ClientDto>>> GetAll(int page, int take)
             => await _clientService.GetAll(page, take);
         // /clients/1
         [HttpGet("{id}")]
