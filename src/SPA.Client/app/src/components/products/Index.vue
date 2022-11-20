@@ -27,6 +27,10 @@
                             <router-link :to="`/products/${item.productId}/edit`">
                                 Edit
                             </router-link>
+                            -
+                            <a @click="remove(item.productId)">
+                                Delete
+                            </a>
                         </td>
                     </tr>
                 </tbody>

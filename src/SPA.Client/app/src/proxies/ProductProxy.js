@@ -19,4 +19,8 @@ export default class ProductProxy {
   update(id, params) {
     return this.axios.put(this.url + `products/${id}`, params)
   }
+
+  remove(id) {
+    return this.axios.delete(this.url + `products/${id}`)
+  }
 }
