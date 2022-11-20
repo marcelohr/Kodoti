@@ -8,7 +8,15 @@ export default class ProductProxy {
     return this.axios.get(this.url + `products?page=${page}&take=${take}`);
   }
 
+  getById(id) {
+    return this.axios.get(this.url + `products/${id}`)
+  }
+
   create(params) {
     return this.axios.post(this.url + `products`, params)
+  }
+
+  update(id, params) {
+    return this.axios.put(this.url + `products/${id}`, params)
   }
 }

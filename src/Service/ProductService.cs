@@ -57,8 +57,8 @@ namespace Service
         {
             Product entry = await _context.Products.SingleAsync(x => x.ProductId == id);
             entry.Name = model.Name;
-            entry.Description = entry.Description;
-            entry.Price = entry.Price;
+            entry.Description = model.Description;
+            entry.Price = model.Price;
             await _context.SaveChangesAsync();
         }
 

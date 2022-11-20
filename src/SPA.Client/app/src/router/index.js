@@ -35,6 +35,11 @@ const routes = [
     component: SaveProduct
   },
   {
+    path: "/products/:id/edit",
+    name: "editProduct",
+    component: SaveProduct
+  },
+  {
     path: "/users",
     name: "users",
     component: IndexUsers,

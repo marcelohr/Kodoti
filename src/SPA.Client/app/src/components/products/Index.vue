@@ -14,6 +14,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>UnitPrice</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,11 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                         <td>USD {{ item.price }}</td>
+                        <td>
+                            <router-link :to="`/products/${item.productId}/edit`">
+                                Edit
+                            </router-link>
+                        </td>
                     </tr>
                 </tbody>
             </table>
