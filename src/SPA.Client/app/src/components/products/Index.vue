@@ -3,9 +3,10 @@
     <div>
         <h1 class="title">Products</h1>
         <h2 class="subtitle">Desde aqui puede gestionar sus productos</h2>
-    </div>
-
-    <template v-if="!isLoading">
+        <div class="has-text-right field">
+            <router-link to="/products/create" class="button is-info">Add New Product</router-link>
+        </div>
+        <template v-if="!isLoading">
             <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
@@ -26,6 +27,7 @@
         </table>
         <Pager :paging="x => this.getAll(x)" :page="collection.page" :pages="collection.pages" />
         </template>
+    </div>
 </template>
 
 <script src="./Index.js"></script>
