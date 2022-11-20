@@ -3,6 +3,7 @@ import IdentityProxy from './IdentityProxy.js'
 import ProductProxy from './ProductProxy.js'
 import UserProxy from './UserProxy.js'
 import ClientProxy from './ClientProxy.js'
+import OrderProxy from './OrderProxy.js'
 
 // Axios default behavior
 Axios.defaults.headers.common.Accept = 'application/json'
@@ -28,5 +29,6 @@ export default {
     identityProxy: new IdentityProxy(Axios, url),
     userProxy: new UserProxy(Axios, url),
     productProxy: new ProductProxy(Axios, url),
-    clientProxy: new ClientProxy(Axios, url)
+    clientProxy: new ClientProxy(Axios, url),
+    orderProxy: new OrderProxy(Axios, url)
 }

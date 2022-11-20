@@ -25,7 +25,7 @@ export default {
   methods: {
     getAll(page) {
       this.isLoading = true;
-      this.$proxies.productProxy.getAll(page, 10).then((x) => {
+      this.$proxies.productProxy.getAll(page, 10).then(x => {
         this.collection = x.data;
         this.isLoading = false;
       });

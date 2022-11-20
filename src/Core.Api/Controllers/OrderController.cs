@@ -20,7 +20,7 @@ namespace Core.Api.Controllers
         public OrderController(IOrderService orderService) => this._orderService = orderService;
 
         [HttpGet]
-        public async Task<ActionResult<DataCollection<OrderDto>>> GetById(int page, int take) => 
+        public async Task<ActionResult<DataCollection<OrderDto>>> GetAll(int page, int take) => 
             await _orderService.GetAll(page, take);
 
         [HttpGet("{id}")]
