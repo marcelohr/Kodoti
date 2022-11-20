@@ -20,6 +20,7 @@
                 </tr>
             </tbody>
         </table>
+        <Pager :paging="x => this.getAll(x)" :page="collection.page" :pages="collection.pages" />
     </div>
 </template>
 
