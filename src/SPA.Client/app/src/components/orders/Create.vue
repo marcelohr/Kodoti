@@ -44,8 +44,26 @@
                                 <input v-model.number="product.unitPrice" class="input" type="number" />
                             </td>
                             <td colspan="3" class="has-text-right">
-                                <button class="button">Add</button>
+                                <button @click="addProduct" class="button">Add</button>
                             </td>
+                        </tr>
+                        <tr v-if="model.items.length === 0">
+                            <td colspan="7" class="has-text-centered has-text-danger">
+                                Product not selected
+                            </td>
+                        </tr>
+                        <tr v-else v-for="item in model.items" :key="item.productId">
+                            <td class="has-text-centered has-text-danger" sytle="width:100px;">
+                                <a>Remove</a>
+                            </td>
+                            <td>
+                                {{item.name}}
+                            </td>
+                            <td class="has-text-right">{{item.quantity}}</td>
+                            <td class="has-text-right">USD {{item.unitPrice}}</td>
+                            <td class="has-text-right">USD {{item.subTotal}}</td>
+                            <td class="has-text-right">USD {{item.iva}}</td>
+                            <td class="has-text-right">USD {{item.total}}</td>
                         </tr>
                     </tbody>
                     <tfoot class="has-text-weight-bold">

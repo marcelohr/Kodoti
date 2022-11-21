@@ -51,6 +51,26 @@ export default {
             this.product.quantity = 1
             this.product.unitPrice = product.price
             console.log(this.product)
+        },
+        addProduct() {
+            if(!this.model.items.some(x => x.productId === this.product.productId)) {
+                // lo recomendado es que venga desde el server
+                const ivaRate = 0.15
+                let item = {
+                    // son los obligatorios del servidor 
+                    productId: this.product.productId,
+                    unitPrice: this.product.unitPrice,
+                    quantity: this.product.quantity,
+
+                    //
+                    name: this.products.find(x => x.productId === this.product.productId).name,
+                    total: this.product.quantity * this.product.unitPrice
+                }
+                item.iva = ivaRate * item.total
+                item.subTotal = item.total - item.iva
+                this.model.items.push(item)
+                this.onChangeProductSelection()
+            }
         }
     }
 }
