@@ -7,7 +7,7 @@
         <template v-if="!isLoading">
             <div class="box">
                 <div class="select is-fullwidth">
-                    <select>
+                    <select v-model.number="model.clientId">
                         <option v-for="client in clients" :key="client.clientId" :value="client.clientId">
                             {{ client.name }}
                         </option>
@@ -30,7 +30,7 @@
                         <tr>
                             <td colspan="2">
                                 <div class="select is-fullwidth">
-                                    <select>
+                                    <select @change="onChangeProductSelection" v-model.number="product.productId">
                                         <option v-for="product in products" :key="product.productId" :value="product.productId">
                                             {{ product.name }}
                                         </option>
@@ -38,10 +38,10 @@
                                 </div>
                             </td>
                             <td>
-                                <input class="input" type="number" />
+                                <input v-model.number="product.quantity" class="input" type="number" />
                             </td>
                             <td>
-                                <input class="input" type="number" />
+                                <input v-model.number="product.unitPrice" class="input" type="number" />
                             </td>
                             <td colspan="3" class="has-text-right">
                                 <button class="button">Add</button>

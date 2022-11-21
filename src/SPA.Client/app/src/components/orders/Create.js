@@ -12,6 +12,17 @@ export default {
         return {
             clients: [],
             products: [],
+            model: {
+                clientId: null,
+                items: [
+
+                ]
+            },
+            product: {
+                productId: null,
+                quantity: 1,
+                unitPrice: 0
+            },
             isLoading: false
         }
     },
@@ -24,8 +35,22 @@ export default {
             .then(values => {
                 this.clients = values[0].data.items
                 this.products = values[1].data.items
+
+                this.model.clientId = this.clients[0].clientId
+                this.product.productId = this.products[0].productId
+
+                this.onChangeProductSelection()
+
                 this.isLoading = false
             })
+        },
+        onChangeProductSelection() {
+            let product = this.products.find(
+                x => x.productId == this.product.productId
+            )
+            this.product.quantity = 1
+            this.product.unitPrice = product.price
+            console.log(this.product)
         }
     }
 }
