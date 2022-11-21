@@ -3,6 +3,7 @@ import Default from "../components/Default.vue";
 import IndexClients from "../components/clients/Index.vue";
 import SaveClients from "../components/clients/Save.vue"
 import IndexOrders from "../components/orders/Index.vue";
+import CreateOrder from "../components/orders/Create.vue"
 import IndexProducts from "../components/products/Index.vue";
 import SaveProduct from "../components/products/Save.vue"
 import IndexUsers from "../components/users/Index.vue";
@@ -19,6 +20,11 @@ const routes = [
     path: "/orders",
     name: "orders",
     component: IndexOrders
+  },
+  {
+    path: "/orders/create",
+    name: "createOrder",
+    component: CreateOrder
   },
   {
     path: "/clients",
