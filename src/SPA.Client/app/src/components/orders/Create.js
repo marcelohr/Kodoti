@@ -8,6 +8,23 @@ export default {
     components: {
         Loader
     },
+    computed: {
+        iva() {
+            if(this.model.items.length === 1) return this.model.items[0].iva
+            if(this.model.items.length > 1) return this.model.items.reduce((a, b) => a.iva + b.iva)
+            return 0
+        },
+        subTotal() {
+            if(this.model.items.length === 1) return this.model.items[0].subTotal
+            if(this.model.items.length > 1) return this.model.items.reduce((a, b) => a.subTotal + b.subTotal)
+            return 0
+        },
+        total() {
+            if(this.model.items.length === 1) return this.model.items[0].total
+            if(this.model.items.length > 1) return this.model.items.reduce((a, b) => a.total + b.total)
+            return 0
+        }
+    },
     data() {
         return {
             clients: [],
@@ -71,6 +88,9 @@ export default {
                 this.model.items.push(item)
                 this.onChangeProductSelection()
             }
+        },
+        removeProduct(id) {
+            this.model.items = this.model.items.filter(x => x.productId != id)
         }
     }
 }

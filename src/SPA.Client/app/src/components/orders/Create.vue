@@ -54,7 +54,7 @@
                         </tr>
                         <tr v-else v-for="item in model.items" :key="item.productId">
                             <td class="has-text-centered has-text-danger" sytle="width:100px;">
-                                <a>Remove</a>
+                                <a @click="removeProduct(item.productId)">Remove</a>
                             </td>
                             <td>
                                 {{item.name}}
@@ -68,15 +68,15 @@
                     </tbody>
                     <tfoot class="has-text-weight-bold">
                         <tr>
-                            <td colspan="6" class="has-text-right">Subtotal</td>
+                            <td colspan="6" class="has-text-right">USD {{subTotal}}</td>
                             <td class="has-text-right"></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="has-text-right">IVA</td>
+                            <td colspan="6" class="has-text-right">USD {{iva}}</td>
                             <td class="has-text-right"></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="has-text-right">Total</td>
+                            <td colspan="6" class="has-text-right">USD {{total}}</td>
                             <td class="has-text-right"></td>
                         </tr>
                     </tfoot>
