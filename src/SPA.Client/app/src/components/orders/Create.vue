@@ -81,6 +81,9 @@
                         </tr>
                     </tfoot>
                 </table>
+                <button @click="create" :disabled="model.items.length === 0" class="button is-success is-large is-fullwidth">
+                    Confirm
+                </button>
             </div>
         </template>
         <Loader v-else />

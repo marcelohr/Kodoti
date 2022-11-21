@@ -24,8 +24,8 @@ namespace Core.Api.Config
             CreateMap<OrderDetail, OrderDetailDto>();
             CreateMap<DataCollection<Order>, DataCollection<OrderDto>>();
 
-            CreateMap<Order, OrderCreateDto>();
-            CreateMap<OrderDetail, OrderDetailCreateDto>();
+            CreateMap<OrderCreateDto, Order>();
+            CreateMap<OrderDetailCreateDto, OrderDetail>();
 
             CreateMap<AplicationUser, AplicationUserDto>()
                 .ForMember(

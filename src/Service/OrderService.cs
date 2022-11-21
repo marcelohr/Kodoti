@@ -31,6 +31,8 @@ namespace Service
         public async Task<DataCollection<OrderDto>> GetAll(int page, int take) =>
             _mapper.Map<DataCollection<OrderDto>>(
                 await _context.Orders.OrderByDescending(x => x.OrderId)
+                .Include(x => x.Client)
+                .Include(x => x.Items).ThenInclude(x => x.Product)
                     .AsQueryable()
                     .PagedAsync(page, take)
             );

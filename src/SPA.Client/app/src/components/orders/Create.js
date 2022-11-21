@@ -91,6 +91,25 @@ export default {
         },
         removeProduct(id) {
             this.model.items = this.model.items.filter(x => x.productId != id)
+        },
+        create() {
+            this.isLoading = true
+            this.$proxies.orderProxy.create(this.model).then(() => {
+                this.isLoading = false
+                this.$notify({
+                    group: "global",
+                    type: "warning",
+                    text: "Ordern Procesada Correctamente!"
+                })
+                this.$router.push('/orders')
+            }).catch(() => {
+                this.isLoading = false
+                this.$notify({
+                    group: "global",
+                    type: "warning",
+                    text: "Ocurrió un error inesperado"
+                })
+            })
         }
     }
 }
