@@ -18,6 +18,21 @@ Axios.interceptors.request.use(
     },
     error => Promise.reject(error)
 )
+
+Axios.interceptors.response.use(
+    response => response,
+    error => {
+      const { status } = error.response;
+   
+      if (status === 401) {
+        localStorage.removeItem('access_token');
+        window.location.reload(true);
+      }
+   
+      return Promise.reject(error)
+    }
+  )
+
 let url = null
 
 if(localStorage.getItem("config") !== null){

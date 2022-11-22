@@ -11,4 +11,8 @@ export default class IdentityProxy {
   login(params) {
     return this.axios.post(this.url + "identity/login", params);
   }
+
+  refresh() {
+    return this.axios.get(this.url + "identity/refresh_token")
+  }
 }

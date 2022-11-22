@@ -1,4 +1,5 @@
 ﻿using Core.Api.Commons;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +57,17 @@ namespace Core.Api.Controllers
             }
             
             return BadRequest("Acceso no valido al sistema");
+        }
+
+        [Authorize]
+        [HttpGet("refresh_token")]
+        public async Task<IActionResult> Refresh()
+        {
+            string userId = User.Claims.Where(x => x.Equals(ClaimTypes.NameIdentifier)).Single().Value;
+            AplicationUser user = await _userManager.FindByIdAsync(userId);
+            return Ok(
+                await GenerateToken(user)
+            );
         }
 
         private async Task<string> GenerateToken(AplicationUser user)
